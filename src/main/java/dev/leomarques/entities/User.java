@@ -4,8 +4,14 @@ package dev.leomarques.entities;
 import java.io.Serializable;
 import java.util.Objects;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "tb_user")
 public class User implements Serializable {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String email;
@@ -73,4 +79,6 @@ public class User implements Serializable {
     public int hashCode() {
         return Objects.hash(getId());
     }
+
+
 }
