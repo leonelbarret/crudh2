@@ -1,14 +1,8 @@
 package dev.leomarques.config;
 
-import dev.leomarques.entities.Category;
-import dev.leomarques.entities.Order;
-import dev.leomarques.entities.Product;
-import dev.leomarques.entities.User;
+import dev.leomarques.entities.*;
 import dev.leomarques.entities.enums.OrderStatus;
-import dev.leomarques.repository.CategoryRepository;
-import dev.leomarques.repository.OrderRepository;
-import dev.leomarques.repository.ProductRepository;
-import dev.leomarques.repository.UserRepository;
+import dev.leomarques.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -32,6 +26,9 @@ public class TestConfig implements CommandLineRunner {
 
     @Autowired
     private ProductRepository prepo;
+
+    @Autowired
+    private OrderItemRepository orderrepo;
 
     @Override
     public void run(String... args) throws Exception {
@@ -67,6 +64,15 @@ public class TestConfig implements CommandLineRunner {
         p5.getCategories().add(cat3);
 
         prepo.saveAll(Arrays.asList(p1,p2,p3,p4,p5));
+
+        OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice());
+        OrderItem oi2 = new OrderItem(o1, p3, 1, p3.getPrice());
+        OrderItem oi3 = new OrderItem(o2, p3, 2, p3.getPrice());
+        OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice());
+
+        orderrepo.saveAll(Arrays.asList(oi1,oi2,oi3,oi4));
+
+
 
     }
 }

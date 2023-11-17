@@ -14,11 +14,11 @@ import java.util.Objects;
 public class OrderItemPK {
 
     @ManyToOne
-    @JoinColumn(name = "order_id")
+    @JoinColumn(name = "id_order")
     private Order order;
 
     @ManyToOne
-    @JoinColumn(name = "product_id")
+    @JoinColumn(name = "id_product")
     private Product product;
 
     public Order getOrder() {
