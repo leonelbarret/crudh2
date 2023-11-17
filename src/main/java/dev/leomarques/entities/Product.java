@@ -20,7 +20,8 @@ public class Product implements Serializable {
     private Double price;
     private String imgUrl;
 
-    @Transient//Serve para o jpa ignorar essa propriedade
+    @ManyToMany
+    @JoinTable(name = "tb_product_category", joinColumns = @JoinColumn(name = "product_id"),inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Category> categories = new HashSet<>();
 
     public Product() {}
