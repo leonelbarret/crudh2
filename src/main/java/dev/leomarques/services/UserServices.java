@@ -4,6 +4,7 @@ import dev.leomarques.entities.User;
 import dev.leomarques.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
@@ -26,6 +27,13 @@ public class UserServices {
         Optional<User> obj = repo.findById(id);
         return obj.get();
 
+    }
+
+
+
+    @DeleteMapping
+    public void deletar(Long id){
+        repo.deleteById(id);
     }
 
 

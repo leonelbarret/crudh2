@@ -2,12 +2,10 @@ package dev.leomarques.controller;
 
 import java.util.List;
 
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import dev.leomarques.entities.User;
 import dev.leomarques.services.UserServices;
@@ -35,5 +33,14 @@ public class UserController {
     	public ResponseEntity<User> findById(@PathVariable Long id) {
         User user = serv.findById(id);
         return ResponseEntity.ok().body(user);
+    }
+
+
+
+    @DeleteMapping("/{id}")
+    @Operation(summary = "Deletando por id", description = "Deletando por id", tags = {"Users"})
+    public ResponseEntity<User> deletar(@PathVariable @NotNull Long id) {
+        serv.deletar(id);
+        return ResponseEntity.noContent().build();
     }
 }
