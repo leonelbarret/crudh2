@@ -45,6 +45,13 @@ public class UserController {
         return ResponseEntity.created(uri).body(obj);
     }
 
+    @PutMapping(value = "/{id}")
+    @Operation(summary = "Atualizando um usuário", description = "Atualizando um usuário", tags = {"Users"})
+    public ResponseEntity<User> update(@PathVariable Long id, @RequestBody User obj){
+        obj = serv.update(id, obj);
+        return ResponseEntity.ok().body(obj);
+    }
+
     @DeleteMapping("/{id}")
     @Operation(summary = "Deletando por id", description = "Deletando por id", tags = {"Users"})
     public ResponseEntity<User> deletar(@PathVariable @NotNull Long id) {
