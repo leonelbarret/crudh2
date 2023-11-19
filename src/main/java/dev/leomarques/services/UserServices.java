@@ -29,6 +29,10 @@ public class UserServices {
 
     }
 
+    public User create(User user){
+        return repo.save(user);
+    }
+
 
 
     @DeleteMapping

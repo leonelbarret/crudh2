@@ -1,5 +1,6 @@
 package dev.leomarques.controller;
 
+import java.net.URI;
 import java.util.List;
 
 import jakarta.validation.constraints.NotNull;
@@ -11,6 +12,7 @@ import dev.leomarques.entities.User;
 import dev.leomarques.services.UserServices;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 @RequestMapping(value = "/users")
@@ -27,7 +29,6 @@ public class UserController {
         return ResponseEntity.ok().body(list);
     }
 
-    
     @GetMapping(value = "/{id}")
     @Operation(summary = "Procurando usuário por id", description = "Procurando usuário por id", tags = {"Users"})
     	public ResponseEntity<User> findById(@PathVariable Long id) {
@@ -35,7 +36,14 @@ public class UserController {
         return ResponseEntity.ok().body(user);
     }
 
-
+    @PostMapping
+    @Operation(summary = "Criando um usuario", description = "Criando um usuario", tags = {"Users"})
+    public ResponseEntity<User> insert(@RequestBody User obj) {
+        obj = serv.create(obj);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(obj.getId()).toUri();
+        return ResponseEntity.created(uri).body(obj);
+    }
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Deletando por id", description = "Deletando por id", tags = {"Users"})
@@ -44,3 +52,4 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 }
+
